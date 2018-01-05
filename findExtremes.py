@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def parseArgs():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--f',help='the filename where the CKJM results are stored',default='result.txt')
+    parser.add_argument('--f', help='the filename where the CKJM results are stored', default='result.txt')
     
     return parser.parse_args()
     
@@ -19,7 +19,7 @@ with open(args.f,'r') as rf:
         tokens = line.split()
         classes.append(tokens[0])        
         for i,tok in enumerate(tokens[1:]):
-            results[i-1].append(int(tok))
+            results[i].append(int(tok))
 
 print(results)
 
