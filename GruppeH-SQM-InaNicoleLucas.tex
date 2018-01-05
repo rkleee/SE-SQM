@@ -63,16 +63,24 @@ cc.mallet.util.CharSequenceLexer 20 1 0 1 45 94 14 16
 %TODO Output the 3 classes with the highest and lowest scores for the measures CBO and LCOM. (You may use the provided file findExtremes.py for doing this) Have a look at those classes, why do they have high/low scores for CBO and LCOM? How do you judge the quality of the classes and the effectiveness of the measures? Write a short explanation. 
 
 \section{CBO - Kopplung ziwschen Objektklassen}
-CBO 
-CBO: Coupling between object classes
+
 
 \begin{figure}
  \centering
  \includegraphics[width=.8\textwidth]{./CBO.pdf}
  % CBO.pdf: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=
- \caption{Coupling of Object Classes}
+ \caption{CBO: Coupling between Object Classes}
  \label{abb:cbo}
 \end{figure}
+
+Ein hoher Wert des CBO (Coupling between object classes) ist erwünscht. Das bedeutet, dass Methoden mit vielen Instanzvariablen eng gekoppelt sind, was sich wiederum positiv auf die Softwarequalität auswirkt.
+
+% The coupling between object classes (CBO) metric represents the number of classes coupled to a given class (efferent couplings, Ce). This coupling can occur through method calls, field accesses, inheritance, arguments, return types, and exceptions.
+
+
+
+Ein kleiner Wert ist unerwünscht, da dies bedeutet, dass alle Methoden der Klasse eigene unabhängige Instanzvariablen benutzen. Dies wirkt sich negativ auf die Softwarequalität aus. ÜBer 10\% der Klassen haben einen CBO von 0, die Tabelle der schlechtesten Klassen zeigt also nur eine Teilmenge der Klassen mit diesem Wert.
+
 
 
 \begin{center}
@@ -80,9 +88,9 @@ CBO: Coupling between object classes
 \toprule
 CBO: schlechteste Klassen\\
 \midrule
-\lstx{cc.mallet.optimize.OptimizerEvaluator} & 0\\
-\lstx{cc.mallet.util.tests.TestAStar\$1} & 0\\
-\lstx{cc.mallet.pipe.CharSequenceRemoveHTML\$1} & 0 \\
+\lstx{cc.mallet.util.Lexer} & 0\\
+\lstx{cc.mallet.topics.TopicReports} & 0\\
+\lstx{cc.mallet.cluster.util.PairwiseMatrix} & 0 \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -93,29 +101,27 @@ CBO: schlechteste Klassen\\
 \toprule
 CBO: beste Klassen\\
 \midrule
-\lstx{cc.mallet.topics.ParallelTopicModel} & 227 \\
-\lstx{cc.mallet.fst.tests.TestCRF} & 198\\
- \lstx{cc.mallet.topics.LDAHyper}&196 \\
+\lstx{cc.mallet.classify.tests.TestNaiveBayes} & 33 \\ 
+\lstx{cc.mallet.fst.semi_supervised.tui.SimpleTaggerWithConstraints} & 34 \\
+ \lstx{cc.mallet.fst.tests.TestCRF}& 51 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 
-Ein hoher Wert des CBO ist erwünscht. Das bedeutet, dass Methoden mit vielen Instanzvariablen eng gekoppelt sind, was sich wiederum positiv auf die Softwarequalität auswirkt.
 
-Ein kleiner Wert ist unerwünscht, da dies bedeutet, dass alle Methoden der Klasse eigene unabhängige Instanzvariablen benutzen. Dies wirkt sich negativ auf die Softwarequalität aus.
-
-Das Histogramm zeigt die CBO-Werte aller getesteten Klassen. Die meisten CBO-Werte liegen im Bereich von 0 bis 50.
+Das Histogramm (Abb. \ref{abb:cbo}) zeigt die CBO-Werte aller getesteten Klassen. Die CBO-Werte liegen im Bereich von 0 bis 51.
 
 \section{LCOM - Mangel an Abgeschlossenheit}
 
-LCOM: Lack of cohesion in methods
+Im Vergleich zum CBO-Wert verhält sich der LCOM-Wert komplementär. Ein hoher Wert steht für den Mangel an Kohäsion (Zusammenhang zwischen den Methoden) und wirkt sich somit negativ auf die Softwarequalität aus.
+Ein niedriger Wert bedeutet keinen Mangel und ist somit positiv für die Softwarequalität.
 
 \begin{figure}
  \centering
  \includegraphics[width=.8\textwidth]{./LCOM.pdf}
  % LCOM.pdf: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=
- \caption{Lack of Cohesion}
+ \caption{LCOM: Lack of cohesion in methods}
  \label{abb:lcom}
 \end{figure}
 
@@ -125,9 +131,9 @@ LCOM: Lack of cohesion in methods
 \toprule
 LCOM: beste Klassen\\
 \midrule
-\lstx{cc.mallet.extract.test.TestDocumentExtraction} &0 \\
-\lstx{cc.mallet.fst.LabelDistributionEvaluator} &0 \\
-\lstx{cc.mallet.optimize.OptimizerEvaluator\$ByBatchGradient} &0  \\
+\lstx{cc.mallet.fst.semi_supervised.GELatticeTask} &0 \\
+\lstx{cc.mallet.optimize.OptimizerEvaluator\$ByBatchGradient} &0 \\
+\lstx{cc.mallet.util.ProgressMessageLogFormatter} &0  \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -138,17 +144,13 @@ LCOM: beste Klassen\\
 \toprule
 LCOM: schlechteste Klassen \\
 \midrule
-\lstx{cc.mallet.pipe.Pipe} & 229\\
-\lstx{cc.mallet.types.InstanceList} & 241\\
-\lstx{cc.mallet.types.Instance} & 339 \\
+\lstx{cc.mallet.types.InstanceList} & 2365\\
+\lstx{cc.mallet.types.MatrixOps} & 1911\\
+\lstx{cc.mallet.fst.CRF} & 1578 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-Im Vergleich zum CBO-Wert verhält sich der LCOM-Wert komplementär. Ein hoher Wert steht für den Mangel an Kohäsion (Zusammenhang zwischen den Methoden) und wirkt sich somit negativ auf die Softwarequalität aus.
-Ein niedriger Wert bedeutet keinen Mangel und ist somit positiv für die Softwarequalität.
-
-\pagebreak
 
 \section{Weitere Kenngrößen und graphische Darstellung}
 
@@ -156,47 +158,61 @@ Ein niedriger Wert bedeutet keinen Mangel und ist somit positiv für die Softwar
 
 Die Kenngrößen werden als normierte Histogramme dargestellt, auf der x-Achse sind Bereiche möglicher Werte der Kenngröße aufgetragen. Auf der y-Achse der Anteil der Klassen, die diesem Wertebereich zugeordnet sind.
 
-Als weitere Kenngrößen wurden von \lstx{ckjm} ermittelt:
+Neben den in den vorherigen Kaptieln bereits vorgestellten Kenngrößen wurden folgende weitere von \lstx{ckjm} ermittelt:
 
-\begin{itemize}
-\item WMC: Weighted methods per class
+\begin{description}
+
+% A class's weighted methods per class WMC metric is simply the sum of the complexities of its methods. As a measure of complexity we can use the cyclomatic complexity, or we can abritrarily assign a complexity value of 1 to each method. The ckjm program assigns a complexity value of 1 to each method, and therefore the value of the WMC is equal to the number of methods in the class.
+
+%TODO Ich habe ein paar Klassen aufgemacht und alle Methoden gezählt, das passt nicht immer. Steht irgendwo was von einem Kriterium, welche Meothden zählen und welche nicht?
+\item [WMC: Weighted methods per class] (Abb. \ref{abb:wmc} li.) stellt der Wert einfach nur die Anzahl der Methoden einer Klasse dar, weil die Gewichtung (entsprechend der Komplexität) aller Methoden auf 1 gesetzt wurde. Als Grund für diesen festen Wert werden die einfache Implementierung und die Kompatibilität zu Chidamber und Kemerer genannt. Für die Verständlichkeit und Erweiterbarkeit ist es von Vorteil, wenn die Anzahl der Methoden einer Klasse in einem überschaubaren Rahmen bleiben. Bei der betrachteten Sofrtware haben alle Klassen 0–5 Methoden, was sehr überschaubar ist.  
     \begin{itemize}
     \item WMC betrachtet die Komplexität (Erweiterbarkeit und Verständlichkeit) der Klassen. Größere Werte sind negativ. Kleinere Werte sind positiv.
     \end{itemize}
+    
+    
+% Depth of Inheritance Tree
+% The depth of inheritance tree (DIT) metric provides for each class a measure of the inheritance levels from the object hierarchy top. In Java where all classes inherit Object the minimum value of DIT is 1.
 
-\item DIT: Depth of Inheritance Tree
+%TODO Wir haben Bäume der Tiefe 0, das sollte aber laut Manual nicht möglich sein.
+
+\item DIT: Depth of Inheritance Tree (Abb. \ref{abb:wmc} re.)
     \begin{itemize}
     \item DIT misst die Tiefe des Vererbungsbaums. Je tiefer dieser Baum ist, desto negativer wirkt sich das auf die Softwarequalität aus, weil es dann schwieriger ist, die Vererbungsstruktur bis in die Blätter nachzuvollziehen. D.h. in unserem Histogramm sind solche Klassen gut, die den Wert 0 haben, weil die Tiefe des Baums
     \end{itemize}
 
-\item NOC: Number of Children
+    
+    
+    
+\item NOC: Number of Children (Abb. \ref{abb:noc_rfc} li.)
     \begin{itemize}
     \item NOC misst die Anzahl der Subklassen, die direkt unter der gemessenen Klasse existieren. Ein hoher Wert bedeutet, dass diese Klasse oft wiederverwendet wird und somit Code gesapart wird. Das bedeutet aber auch, dass eine Klasse mit hohem Wert gut getestet muss, um die Softwarequalität zu steigern. Im Vergleich zu DIT misst NOC die Breite des Baums, statt der Tiefe.
     \end{itemize}
 
-\item RFC: Response for a Class
+\item RFC: Response for a Class (Abb. \ref{abb:noc_rfc} re.)
     \begin{itemize}
     \item Der RFC Wert steht für die Anzahl aller möglichen auszuführenden Methoden innerhalb der Klasse. Je höher der Wert, desto höher die Komplexität der Klasse. Also ist ein hoher Wert nicht erwünscht.
     \end{itemize}
 
-\item Ca: Afferent coupling (not a C\&K metric)
+\item [Ca: Afferent coupling] (not a C\&K metric, Abb. \ref{abb:ca_npm} li.)
+    gibt an, wie viele Klassen von dieser Klasse abhängen. Eine Klasse mit einem hohen Ca-Wert hat eine hohe Verantwortung innerhalb der Software, weil sie Funktionalitäten für viele andere Klassen zur Verfügung stellt. 
     \begin{itemize}
     \item Der Ca Wert bestimmt die Anzahl der Packages, die von der Package dieser Klasse abhängen. Ein hoher Wert bedeutet eine hohe Verantwortung für diese Package und ist somit negativ behaftet. Da unsere Klassen größtenteils niedrigere Werte besitzen, ist dies positiv für die Softwarequalität.
     \end{itemize}
 
 %TODO @Rebecca: Bitte nochmal bewerten, ob das so richtig ist.
-\item NPM: Number of Public Methods for a class (not a C\&K metric)
+\item NPM: Number of Public Methods for a class (not a C\&K metric) (Abb. \ref{abb:ca_npm} re.)
     \begin{itemize}
     \item Der NPM Wert bestimmt die Anzahl der public methods innerhalb der Klasse. Ein hoher Wert bedeutet eine große Verantwortung und hohe Komplexität und ist daher für die Softwarequalität nicht von Vorteil.
     \end{itemize}
 
-\end{itemize}
+\end{description}
 
 \begin{figure}
  \includegraphics[width=.45\textwidth]{./WMC.pdf}
  % WMC.pdf: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=
   \includegraphics[width=.45\textwidth]{./DIT.pdf}
- \caption{WMC und DIT}
+ \caption{WMC (WB: 0-5) und DIT (WB: 0-109)}
  \label{abb:wmc}
 \end{figure}
 
@@ -211,7 +227,7 @@ Als weitere Kenngrößen wurden von \lstx{ckjm} ermittelt:
  \includegraphics[width=.45\textwidth]{./NOC.pdf}
  % WMC.pdf: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=
   \includegraphics[width=.45\textwidth]{./RFC.pdf}
- \caption{NOC und RFC}
+ \caption{NOC (WB: 0–51) und RFC (WB: 0–2356)}
  \label{abb:noc_rfc}
 \end{figure}
 
@@ -226,7 +242,7 @@ Als weitere Kenngrößen wurden von \lstx{ckjm} ermittelt:
  \includegraphics[width=.45\textwidth]{./Ca.pdf}
  % WMC.pdf: 0x0 pixel, 300dpi, 0.00x0.00 cm, bb=
   \includegraphics[width=.45\textwidth]{./NPM.pdf}
- \caption{Ca und NPM}
+ \caption{Ca (WB: 0-68) und NPM (0-77)}
  \label{abb:ca_npm}
 \end{figure}
 

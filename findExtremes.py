@@ -23,16 +23,22 @@ with open(args.f,'r') as rf:
 
 print(results)
 
+plots = []
+cp = 0
+
 #calculate classes with highest and lowest values
-for i,m in enumerate(measures):
+for i,m in enumerate(measures[5]):
     zipped = zip(classes,results[i])
     zipped = sorted(zipped,key=lambda x: x[1])
     print (m,zipped[0:3],zipped[-3:])
     #plot histogram and save as pdf
-    plt.hist(results[i], normed=True, bins=100)
-    plt.xlabel(m)
-    plt.savefig(m+'.pdf')
-    plt.clf()
+    p1 = plt
+    p1 = plt.hist(results[i], normed=True, bins=100)
+    plots.append(p1)
+    (plots[cp]).xlabel(m)
+    (plots[cp]).savefig(m+'.pdf')
+    cp+1
+    #plt.clf()
     
 
         
